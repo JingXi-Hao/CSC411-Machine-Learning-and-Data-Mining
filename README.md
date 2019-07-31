@@ -1,1 +1,2 @@
-# CSC411-Machine-Learning-and-Data-Mining
+# CSC411 - Machine Learning and Data Mining
+This course provides an introduction to some of the most commonly used machine learning algorithms. It starts with nearest neighbours, decision trees, and ensembles. Then, it introduces parametric models, including linear regression, logistic and softmax regression, and neural networks. Finally, it moves on to the topics that are probabilistic models, principal components analysis and K-means.
