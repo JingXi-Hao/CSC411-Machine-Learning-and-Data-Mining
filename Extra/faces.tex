@@ -1,0 +1,720 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Programming/Coding Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+% This template uses a Perl script as an example snippet of code, most other
+% languages are also usable. Configure them in the "CODE INCLUSION 
+% CONFIGURATION" section.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+% PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{subcaption}
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{enumitem}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{\hmwkClass\ (\hmwkClassTime): \hmwkTitle} % Top center head
+%\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+% CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
+\lstloadlanguages{Perl} % Load Perl syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
+\lstset{language=Perl, % Use Perl in this example
+        frame=single, % Single frame around code
+        basicstyle=\small\ttfamily, % Use small true type font
+        keywordstyle=[1]\color{Blue}\bf, % Perl functions bold and blue
+        keywordstyle=[2]\color{Purple}, % Perl function arguments purple
+        keywordstyle=[3]\color{Blue}\underbar, % Custom functions underlined and blue
+        identifierstyle=, % Nothing special about identifiers                                         
+        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small, % Comments small dark green courier font
+        stringstyle=\color{Purple}, % Strings are purple
+        showstringspaces=false, % Don't put marks in string spaces
+        tabsize=5, % 5 spaces per tab
+        %
+        % Put standard Perl functions not included in the default language here
+        morekeywords={rand},
+        %
+        % Put Perl function parameters here
+        morekeywords=[2]{on, off, interp},
+        %
+        % Put user defined functions here
+        morekeywords=[3]{test},
+        %
+        morecomment=[l][\color{Blue}]{...}, % Line continuation (...) like blue comment
+        numbers=left, % Line numbers on left
+        firstnumber=1, % Line numbers start with line 1
+        numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
+        stepnumber=5 % Line numbers go in steps of 5
+}
+
+% Creates a new command to include a perl script, the first parameter is the filename of the script (without .pl), the second parameter is the caption 
+\newcommand{\perlscript}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.pl}
+\end{itemize}
+}
+
+%----------------------------------------------------------------------------------------
+% DOCUMENT STRUCTURE COMMANDS
+% Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+%\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+%\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+\setcounter{homeworkProblemCounter}{0}
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Part \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+%----------------------------------------------------------------------------------------
+% NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Project\ \#$1$} % Assignment title
+\newcommand{\hmwkDueDate}{Friday,\ February\ 3,\ 2017} % Due date
+\newcommand{\hmwkClass}{CSC411} % Course/class
+\newcommand{\hmwkClassTime}{L0101} % Class/lecture time
+\newcommand{\hmwkAuthorName}{JINGXI HAO} % Your name
+
+%----------------------------------------------------------------------------------------
+% TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+\vspace{0.1in}
+\vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+%\date{} % Insert date here if you want it to appear below your name
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+\clearpage
+%----------------------------------------------------------------------------------------
+% PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+% To have just one problem per page, simply put a \clearpage after each problem
+
+\begin{homeworkProblem}
+
+Describe the dataset of faces. In particular, provide at least three examples of the images in the dataset, as well as at least three examples of cropped out faces. Comment on the quality of the annotation of the dataset: are the bounding boxes accurate? Can the cropped-out faces be aligned with each other?
+
+\vspace{1\baselineskip}
+
+\textbf{\em Solution:}
+
+\begin{itemize}
+
+\item First, provide three examples of the images in the dataset:
+
+\vspace{1\baselineskip}
+
+\begin{figure*}[!ht]
+\begin{subfigure}{.35\textwidth}
+  \centering
+  \includegraphics[width=.35\linewidth]{chenoweth9(1).jpg}
+  \caption{chenoweth9.jpg}
+  \label{fig:uncrop1}
+\end{subfigure}
+\begin{subfigure}{.35\textwidth}
+  \centering
+  \includegraphics[width=.35\linewidth]{chenoweth10(1).jpg}
+  \caption{chenoweth10.jpg}
+  \label{fig:uncrop2}
+\end{subfigure}%
+\begin{subfigure}{.35\textwidth}
+  \centering
+  \includegraphics[width=.35\linewidth]{chenoweth91(1).jpg}
+  \caption{chenoweth91.jpg}
+  \label{fig:uncrop3}
+\end{subfigure}
+\begin{subfigure}{.35\textwidth}
+  \centering
+  \includegraphics[width=.35\linewidth]{hader33(1).jpg}
+  \caption{hader33.jpg}
+  \label{fig:uncrop4}
+\end{subfigure}
+\begin{subfigure}{.35\textwidth}
+  \centering
+  \includegraphics[width=.35\linewidth]{hader38(1).jpg}
+  \caption{hader38.jpg}
+  \label{fig:uncrop5}
+\end{subfigure}%
+\begin{subfigure}{.35\textwidth}
+  \centering
+  \includegraphics[width=.35\linewidth]{hader114(1).jpg}
+  \caption{hader114.jpg}
+  \label{fig:uncrop6}
+\end{subfigure}
+\caption{Examples of the Images in the Dataset}
+\label{fig:pcs}
+\end{figure*}
+
+\vspace{1\baselineskip}
+
+Then, we provide three examples of the cropped out faces:
+
+\vspace{1\baselineskip}
+
+\begin{figure*}[!ht]
+\begin{subfigure}{.35\textwidth}
+  \centering
+  \includegraphics[width=.35\linewidth]{chenoweth9.jpg}
+  \caption{chenoweth9.jpg}
+  \label{fig:uncrop1}
+\end{subfigure}
+\begin{subfigure}{.35\textwidth}
+  \centering
+  \includegraphics[width=.35\linewidth]{chenoweth10.jpg}
+  \caption{chenoweth10.jpg}
+  \label{fig:uncrop2}
+\end{subfigure}%
+\begin{subfigure}{.35\textwidth}
+  \centering
+  \includegraphics[width=.35\linewidth]{chenoweth91.jpg}
+  \caption{chenoweth91.jpg}
+  \label{fig:uncrop3}
+\end{subfigure}
+\begin{subfigure}{.35\textwidth}
+  \centering
+  \includegraphics[width=.35\linewidth]{hader33.jpg}
+  \caption{hader33.jpg}
+  \label{fig:uncrop4}
+\end{subfigure}
+\begin{subfigure}{.35\textwidth}
+  \centering
+  \includegraphics[width=.35\linewidth]{hader38.jpg}
+  \caption{hader38.jpg}
+  \label{fig:uncrop5}
+\end{subfigure}%
+\begin{subfigure}{.35\textwidth}
+  \centering
+  \includegraphics[width=.35\linewidth]{hader114.jpg}
+  \caption{hader114.jpg}
+  \label{fig:uncrop6}
+\end{subfigure}
+\caption{Examples of the cropped out faces}
+\label{fig:pcs}
+\end{figure*}
+
+\item Based on the examples above, we can see that the bounding boxes are not very accurate since some of the faces of the images are not being cut fully (see $Figure2(f)$) and some of the cropped-out images are not even and might not include the person's face (see $Figure2(c)$).
+
+\item According to the examples shown above, we can see that, for the actress Chenoweth, the cropped-out faces on $Figure2(a)$ and $Figure2(b)$ are aligned with each other and $Figure2(c)$ is not aligned with the others since there is no face being cut inside this image. Similarly, for the actor Hader, the cropped-out faces on $Figure2(d)$ and $Figure2(e)$ are aligned with each other and $Figure2(f)$ is not aligned with the others since the face cut in the image is not a full face. Thus, it is obvious that some of the cropped-out faces can be aligned with others for the same person and some of the cropped-out faces can not be aligned with others for the same person. 
+
+\end{itemize}
+
+\end{homeworkProblem}
+\clearpage
+%----------------------------------------------------------------------------------------
+% PROBLEM 2
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+Separate the dataset into three non-overlapping parts: the training set (100 face images per actor), the validation set (10 face images per actor), and the test set (10 face images per actor). For the report, describe how you did that. (Any method is fine). The training set will contain faces whose labels you assume you know. The test set and the validation set will contain faces whose labels you pretend to not know and will attempt to determine using the data in the training set.
+
+\vspace{1\baselineskip}
+
+\textbf{\em Solution:}
+
+\vspace{1\baselineskip}
+
+We use the function called $separate\_dataset()$ in the $faces.py$ file to separate the dataset into three non-overlapping parts: the training set (100 face images per actor), the validation set (10 face images per actor), and the test set (10 face images per actor). In order to keep the randomness, for each actor or actress, we first randomly generate an array of $120$ integers from the range $0$ to $150$. Also, for the reproducible purpose, we call $np.random.seed(1)$ before every time we call $np.random.choice$. Each of these integers generated matches the number in the filename of each actor or actress (e.g. For actress Chenoweth, if the integer from the array is $25$, then we put chenoweth20.jpg in the corresponding set). Then, based on this array of integers, we use first $100$ integers to determine the images that we want to put into the training set, the next $10$ integers to determine the images that we want to put into the validation set, and the last $10$ images to determine the images that we want to put into the test set for each actor and actress. Then, we loop over this process for each actor and actress and store the corresponding images into the corresponding sets.
+
+\end{homeworkProblem}
+\clearpage
+%----------------------------------------------------------------------------------------
+% PROBLEM 3
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+Use Linear Regression in order to build a classifier to distinguish pictures of Bill Hader form pictures of Steve Carell. In your report, specify which cost function you minimized. Report the values of the cost function on the training and the validation sets. Report the performance of the classifier (i.e., the percentage of images that were correctly classified) on the training and the validation sets.
+
+In your report, include the code of the function that you used to compute the output of the classifier (i.e., either Steve Carell or Bill Hader).
+
+In your report, describe what you had to do in order to make the system to work. For example, the system would not work if the parameter $\alpha$ is too large. Describe what happens if αα is too large, and how you figure out what to set $\alpha$ too. Describe the other choices that you made in order to make the algorithm work.
+
+\vspace{1\baselineskip}
+
+\textbf{\em Solution:}
+
+\vspace{1\baselineskip}
+
+\begin{itemize}
+    \item First, we show the cost function that we minimized below.
+    
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.7]{cost_function.png}
+    \caption{The Cost Function}
+    \label{fig:cost_function}
+    \end{figure*}
+    
+    Therefore, the cost function is 
+    
+    $$J(\theta) = \frac{1}{2m}\sum_{i}^{m}(x^{(i)}\theta - y^{(i)})^2 = \frac{1}{2*200}\sum_{i}^{200}(x^{(i)}\theta - y^{(i)})^2$$.
+    
+    \item Then, we report the values of the cost function on the training and the validation set.
+    
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.7]{values_cost_function.png}
+    \caption{The Values of the Cost Function on the Training and the Validation Set}
+    \label{fig:values_cost_function}
+    \end{figure*}
+    
+    \item Then, we report the performance of the classifier on the training set and the validation set.
+    
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.7]{performance.png}
+    \caption{The performance of the Classifiers on the Training and the Validation Set}
+    \label{fig:performance}
+    \end{figure*}
+    
+    \item Then, we report the code of the function that we used to compute the output of the classifier.
+    
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.55]{part31.png}
+    \caption{Linear Regression Function Definition and Gradient Descent Algorithm}
+    \label{fig:part31}
+    \end{figure*}
+    
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.55]{part32.png}
+    \caption{Helper function that Helps to Build X and Y}
+    \label{fig:part32}
+    \end{figure*}
+    
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.6]{part33.png}
+    \caption{Function that Computes Output of the Classifier}
+    \label{fig:part33}
+    \end{figure*}
+    
+    \newpage
+    
+    \item Lastly, we describe what we had to do in order to make the system to work. First, we describe how we choose $\alpha$. The system is not able to work with the large $\alpha$. When $\alpha$ is large, the system produces the poor performance for both sets and the value of $\theta$ can not be computed.
+    
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.6]{large_alpha.png}
+    \caption{Theta obtained by Using Large Alpha}
+    \label{fig:large_alpha}
+    \end{figure*}
+    
+    Also, too small $\alpha$ offers the poor accuracy for both sets as well. Then, we figure out the value of $\alpha$ by trying distinct values of $\alpha$ and choose the value that produces the higher performance. In our case, we pick $\alpha$ equals to $9*1e-8$. In addition, we need to choose the value of iterations. By trying different values for iteration, we are able to conclude that more iterations higher accuracy the system produces. But, too large iterations may produce overfitting which reduces the performance for both sets as well. Thus, we choose the value of iteration by running the system with different values and set the value of iteration to the one that produces the higher performance for both sets. In our case, we choose the value of iteration equals to 50000. Moreover, we also have to pick the value for the initial $\theta$ which is the weight. This time we also pick the value that produces the higher performance after trying different values of initial $\theta$ and then we let each component of initial $\theta$ be zero. 
+
+\end{itemize}
+
+
+
+\end{homeworkProblem}
+\clearpage
+
+%----------------------------------------------------------------------------------------
+% PROBLEM 4
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+In Part 3, you used the hypothesis function $h_\theta(x)=\theta_0+\theta_1x_1+...+\theta_nx_nh_\theta(x)=\theta_0+\theta_1x_1+...+\theta_nx_n$. If $(x_1,...,x_n)(x_1,...,x_n)$ represents a flattened image, then $(\theta_1,...,\theta_n)(\theta_1,...,\theta_n)$ can also be viewed as an image. Display the $\theta's$ that you obtain by training using the full training dataset, and by training using a training set that contains only two images of each actor.
+
+\vspace{1\baselineskip}
+
+The images could look as follows.
+
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.6]{q4.png}
+    \label{fig:q4}
+    \end{figure*}
+
+\vspace{1\baselineskip}
+
+\textbf{\em Solution:}
+
+\vspace{1\baselineskip}
+
+First, we display the $\theta's$ obtained by training using the full training dataset.
+
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.5]{view_full_theta.png}
+    \caption{Theta obtained by Using Full Training Dataset}
+    \label{fig:view_full_theta}
+    \end{figure*}
+    
+Then, we display the $\theta's$ obtained by training using a training set that contains only two images of each actor.
+
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.5]{view_partial_theta.png}
+    \caption{Theta obtained by Using Two Images of Each Actor}
+    \label{fig:view_partial_theta}
+    \end{figure*}
+    
+\newpage
+
+As we can see that, these two heatmaps have big difference. The image of the heatmap generated by using the full dataset is noisy since due to the diverse quality of the cropped-out images of the faces for the actor, the more data used the more diverse the characteristics are chosen and determined. This causes each feature to not be able to conform, hence makes it hard to display all features together. Thus, the heatmap of the $\theta$ produced by using the full training dataset is noisy. Also, if we use a smaller size of the dataset, the less features of the actor is produced and easy to conform. Therefore, the image of the heatmap of the $\theta$ obtained by using two images of each actor looks more like a face.
+
+
+\end{homeworkProblem}
+\clearpage
+
+%----------------------------------------------------------------------------------------
+% PROBLEM 5
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+In this part, you will demonstrate overfitting. Build classifiers that classify the actors as male or female using the training set with the actors from
+
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.5]{q51.png}
+    \label{fig:q51}
+    \end{figure*}
+
+and using training sets of various sizes. Plot the performance of the classifiers on the training and validation sets vs the size of the training set.
+
+\vspace{1\baselineskip}
+
+Report the performance of the classifier on actors who are not included in $act$ :
+
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.5]{q52.png}
+    \label{fig:q52}
+    \end{figure*}
+    
+\vspace{1\baselineskip}
+
+\textbf{\em Solution:}
+
+\vspace{1\baselineskip}
+
+\begin{itemize}
+
+\item First, we show that plot graph of the performance of the classifiers on the training set vs the size of the training set.
+
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.6]{overfit.png}
+    \caption{The Performance of the Classifiers on the Training and Validation Set vs the Size of the Training Set}
+    \label{fig:overfit}
+    \end{figure*}
+
+We try $10$ different sizes of the training set and generated $10$ different values of $\theta$. Also, we use each different $\theta$ to compute the corresponding performance of the classifiers and then plot them. Based on the graph shown above, we can see that the performance of the classifier on the validation set gradually increases at first and then gradually decreases after the size of the training set equals to $540$ and the performance of the classifier on the training set is always very close to $1$. Therefore, this demonstrates the overfitting.
+
+\newpage
+
+\item Then, we report the performance of the classifier on actors who are not included in $act$. Then, the performance is 
+
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.8]{part5.png}
+    \caption{The Performance of the Classifiers on Actors who are not Included in $act$}
+    \label{fig:part5}
+    \end{figure*}
+
+\end{itemize}
+
+\end{homeworkProblem}
+\clearpage
+
+%----------------------------------------------------------------------------------------
+% PROBLEM 6
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+
+Now, consider a different way of classifying inputs. Instead of assigning the output value $y=1$ to images of Paul McCartney and the output value $y=−1$ to images of John Lennon, which would not generalize to more than 2 labels, we could assign output values as follows:
+
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.5]{q61.png}
+    \label{fig:q61}
+    \end{figure*}
+    
+The output could still be computed using $\theta^Tx$ , but $\theta$ would now have to be a $n \times k$ matrix, where $k$ is the number of possible labels, with $x$ being a $n \times 1$ vector.
+
+\vspace{1\baselineskip}
+
+The cost function would still be the sum of squared differences between the expected outputs and the actual outputs:
+
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.5]{q62.png}
+    \label{fig:q62}
+    \end{figure*}
+    
+\vspace{1\baselineskip}
+
+\begin{enumerate}[label=(\alph*)]
+\item Compute $\partial J/ \partial \theta_{pq}$. Show your work. Images of neatly hand-written derivations are acceptable, though you are encouraged to use LaTeX.
+
+\vspace{1\baselineskip}
+
+\textbf{\em Solution:}
+
+\vspace{1\baselineskip}
+
+We show the detailed work for computing $\partial J/ \partial \theta_{pq}$.
+
+$\frac{\partial J(\theta)}{\partial \theta_{pq}} = \frac{\partial \sum_{i} {(\sum_{j} (\theta^Tx^{(i)} - y^{(i)})_j)}^2}{\partial \theta_{pq}}$
+
+\hspace{8mm} $ = \frac{\partial \sum_{i} {((\theta^Tx^{(i)} - y^{(i)})_0 + (\theta^Tx^{(i)} - y^{(i)})_1 + \dots + \theta^Tx^{(i)} - y^{(i)})_n)}^2}{\partial \theta_{pq}}$ $\#$ where $j$ is in range from $0$ to $n$
+
+\hspace{8mm} $ = \frac{\partial \sum_{i} {(\theta^Tx^{(i)} - y^{(i)})_q}^2}{\partial \theta_{pq}}$
+
+\hspace{8mm} $ = \sum_{i} \frac{\partial {(\theta^Tx^{(i)} - y^{(i)})_q}^2}{\partial \theta_{pq}}$
+
+\hspace{8mm} $ = 2\sum_{i} \frac{\partial (\theta^Tx^{(i)} - y^{(i)})_q}{\partial \theta_{pq}} {(\theta^Tx^{(i)} - y^{(i)})_q}$
+
+\hspace{8mm} $ = 2\sum_{i} {x_p}^{(i)} {(\theta^Tx^{(i)} - y^{(i)})_q}$
+
+\vspace{2\baselineskip}
+
+\item Show, by referring to $Part \  6(a)$, that the derivative of $J(\theta)$ with respect to all the components of $\theta$ can be written in matrix form as
+
+$$2\textbf{X}(\theta^T \textbf{X} - \textbf{Y})^T$$.
+
+Specify the dimensions of each matrix that you are using, and define each variable (e.g., we defined m as the number of training examples.) $\textbf{X}$ is a matrix that contains all the input training data (and additional 1’s), of the appropriate dimensions.
+
+\vspace{1\baselineskip}
+
+\textbf{\em Solution:}
+
+\vspace{1\baselineskip}
+First, we specify the dimensions of each matrix that we are using, and define each variable. Then, $\textbf{X}$ is an input matrix and its dimensions are $n \times m$ and $\textbf{Y}$ is an actual output and its dimensions are $k \times m$. Also, $\theta$ is a weight matrix and its dimensions are $n \times k$, therefore, the dimensions of $\theta^T$ are $k \times n$.
+
+\vspace{1\baselineskip}
+
+Then, we show that the derivative of $J(\theta)$ with respect to all the components of $\theta$ can be written in matrix form as $2\textbf{X}(\theta^T \textbf{X} - \textbf{Y})^T$. In order to prove this, we need to show that the each value in the matrix $\partial J(\theta) / \partial \theta_{pq}$ agrees with the value in the matrix $2\textbf{X}(\theta^T \textbf{X} - \textbf{Y})^T$ at the same position. Therefore, we have that,
+
+\vspace{1\baselineskip}
+
+${(2\textbf{X}(\theta^T \textbf{X} - \textbf{Y})^T)}_{pq} = 2\sum_{i} x_{pi} {(\theta^T x - y)_{iq}}^T$ \hspace{5mm} $\#$ where $i$ is in range from $0$ to $m$
+
+\hspace{30mm} $ = 2\sum_{i} {x_p}^{(i)} {(\theta^T x - y)_{iq}}^T$
+
+\hspace{30mm} $ = 2\sum_{i} {x_p}^{(i)} {(\theta^T x - y)_{qi}}$
+
+\hspace{30mm} $ = 2\sum_{i} {x_p}^{(i)} {(\theta^T x^{(i)} - y^{(i)})_{q}}$
+
+\hspace{30mm} $ = \partial J(\theta) / \partial \theta_{pq}$ \hspace{5mm} $\#$ By $Part$ $6$ $(a)$
+
+\vspace{1\baselineskip}
+
+Thus, we have proven that the derivative of $J(\theta)$ with respect to all the components of $\theta$ can be written in matrix form as $2\textbf{X}(\theta^T \textbf{X} - \textbf{Y})^T$.
+
+\vspace{2\baselineskip}
+
+\item Implement the cost function from Part 6 and the vectorized gradient function in Python. Include the code in your report.
+
+\vspace{1\baselineskip}
+
+\textbf{\em Solution:}
+
+\vspace{1\baselineskip}
+
+We show the code that implements the cost function and the vectorized gradient.
+
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.6]{6c1.png}
+    \caption{The cost function}
+    \label{fig:6c1}
+    \end{figure*}
+    
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.6]{6c2.png}
+    \caption{The Vectorized Gradient}
+    \label{fig:6c2}
+    \end{figure*}
+
+\vspace{2\baselineskip}
+
+\item Demonstrate that the vectorized gradient function works by computing several components of the gradient using finite differences. In your report, include the code that you used to compute the gradient components using finite differences, and to compare them to the gradient that you computed using your function.
+
+\vspace{1\baselineskip}
+
+\textbf{\em Solution:}
+
+\vspace{1\baselineskip}
+
+First, we show the code that we used to compute the gradient components using finite differences and to compare them to the gradient that we computed using $test\_dataset\_new\_way()$ function in $Part \ 7$.
+
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.6]{6d1.png}
+    \caption{The Code to Compute and Compare}
+    \label{fig:6d1}
+    \end{figure*}
+    
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.6]{6d2.png}
+    \caption{The Results From the Code Above}
+    \label{fig:6d2}
+    \end{figure*}
+    
+We compute $16$ components of the gradient using finite differences and compare them to the gradient that we computed from $Part \ 7$ by calculating the absolute value of the difference between the corresponding components from each matrix. Based on the results shown above, we can see that the absolute value of difference is really small. Thus, the vectorized gradient function works by computing several components of the gradient using finite differences.
+
+\end{enumerate}
+
+\end{homeworkProblem}
+\clearpage
+
+%----------------------------------------------------------------------------------------
+% PROBLEM 7
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}
+Run gradient descent on the set of six actors $act$ in order to perform face recognition. Report the performance you obtained on the training and validation sets. Indicate what parameters you chose for gradient descent and why they seem to make sense.
+
+\vspace{1\baselineskip}
+
+\textbf{\em Solution:}
+
+\vspace{1\baselineskip}
+
+\begin{itemize}
+    
+    \item First, we report the performance obtained on the training and the validation sets.
+
+
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.7]{7.png}
+    \caption{The Performance on the Training and Validation Sets}
+    \label{fig:7}
+    \end{figure*}
+    
+    \item Then, we indicate what parameters chosen for gradient descent and explain why they seen to make sense. In this case, we let $\alpha$ be $4*1e-11$ and iterations be 4000. Also, assign zero to every component in the initial $\theta$ which is the weight. We choose these values by the same picking approach, which is to try out different values and pick the one offers the relatively higher performances and produces the heatmap (generated in $Part \ 8$) that resembles a face.
+
+\end{itemize}
+\end{homeworkProblem}
+\clearpage
+
+%----------------------------------------------------------------------------------------
+% PROBLEM 8
+%----------------------------------------------------------------------------------------
+\begin{homeworkProblem}
+Visualize the $\theta s$ that you obtained. Note that if $\theta$ is a $k \times n$ matrix, where $k$ is the number of possible labels and $n-1$ is the number of pixels in each image, the rows of θθ could be visualized as images. Your outputs could look something like the ones below. Label the images with the appropriate actor names.
+
+    \begin{figure*}[h!]
+    \centering
+    \includegraphics[scale=0.7]{q8.png}
+    \label{fig:q8}
+    \end{figure*}
+    
+\vspace{1\baselineskip}
+
+\textbf{\em Solution:}
+
+\vspace{1\baselineskip}
+
+We visualize the $\theta$ obtained.
+
+\includegraphics[scale=0.5]{face0.png}
+\includegraphics[scale=0.5]{face1.png}
+
+\includegraphics[scale=0.5]{face2.png}
+\includegraphics[scale=0.5]{face3.png}
+
+\includegraphics[scale=0.5]{face4.png}
+\includegraphics[scale=0.5]{face5.png}
+
+
+
+\end{homeworkProblem}
+
+\end{document}
